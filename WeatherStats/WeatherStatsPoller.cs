@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Diagnostics;
 using System.Net;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
-using System.Xml;
 
-namespace EF6CodeFirstTutorials
+namespace WeatherStats
 {
     public class WeatherStatsPoller
     {
+        //TODO poll other values, such as min and max temp, huidity etc.
         private double temperature;
 
         private string city;
@@ -23,8 +20,6 @@ namespace EF6CodeFirstTutorials
             this.country = country;
         }
 
-        public bool IsDone = false;
-        
         public string City => this.city;
         
         public string Country => this.country;
@@ -38,18 +33,19 @@ namespace EF6CodeFirstTutorials
             set
             {
                 temperature = value;
-                this.IsDone = true;
             }
         }
 
-        public async Task PollDataFromWeb()
+        public async Task<double> PollDataFromWeb()
         {
             try
             {
-        
                 //TODO use nuget package and NewtonSoft to parse json properly
                 var weburl = GetUrlForCity(city, country);
-                var json=  new WebClient().DownloadStringTaskAsync(new Uri(weburl));
+                
+
+                var json = Task.Factory.StartNew<string>(() => new WebClient().DownloadStringTaskAsync(new Uri(weburl)).Result);
+
                 await json;
                 var splitToString = json.Result.Split(':');
                 for(int i = 0 ; i!= splitToString.Length;i++)
@@ -63,13 +59,15 @@ namespace EF6CodeFirstTutorials
                     }
                 }
 
+                return Temperature;
+
 
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                Debug.Assert(false,e.Message);
             }
+            return -1000;
         }
 
         private string GetUrlForCity(string city, string country)

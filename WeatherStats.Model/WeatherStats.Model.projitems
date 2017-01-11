@@ -9,8 +9,8 @@
     <Import_RootNamespace>WeatherStats.Model</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Standard.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Student.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)WeatherStats.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedMethods.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Database.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WeatherMeasurement.cs" />
   </ItemGroup>
 </Project>
