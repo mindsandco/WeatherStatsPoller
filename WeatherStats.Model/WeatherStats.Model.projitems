@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>ec1c7c3c-19a3-43c7-8b1c-d89a43e0a7db</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>WeatherStats.Model</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Standard.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Student.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WeatherStats.cs" />
+  </ItemGroup>
+</Project>
