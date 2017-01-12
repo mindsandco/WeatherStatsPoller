@@ -18,7 +18,7 @@ namespace WeatherStats
             moduleManager.AddModule(new WeatherPollerModule("DK","Aarhus"));
 
             //TODO Make a module that scans the offline files folder and importes these
-            //TODO Make a module that exposes the weather data as a webservice using a timestamp as index for retrieving single measurements
+            // TODO Make a module or similar that checks for missing data and creates the values by interpolating the existing data
             moduleManager.StartAllModules();
             Console.WriteLine("Press Q to quit");
             while (moduleManager.KeepRunnning)

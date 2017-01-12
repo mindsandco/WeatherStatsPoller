@@ -25,7 +25,7 @@ namespace WeatherStats.Modules
         {
             try
             {
-                WeatherStatsPoller wsp = new WeatherStatsPoller(this.City, this.Country);
+                var wsp = new WeatherStatsPoller(this.City, this.Country);
                 while (false == this.ClosingDown)
                 {
                     var msToSleep = Math.Abs((DateTime.Now - DateTime.Now.ToTenMinutePrecision()).TotalMilliseconds);
@@ -41,20 +41,7 @@ namespace WeatherStats.Modules
                     catch (Exception e)
                     {
                         // database is not avilable, store the data in a file
-                        var ser = new BinaryFormatter();
-                        using (var memStream = new MemoryStream())
-                        {
-                            ser.Serialize(memStream, measurement);
-                            var array =memStream.ToArray();
-                            var path= System.Configuration.ConfigurationManager.AppSettings["OfflineStoragePath"];
-                            if (Directory.Exists(path) == false)
-                            {
-                                Directory.CreateDirectory(path);
-                            }
-                            File.WriteAllBytes($"{path}\\{measurement.Timestamp.Timestamp2String(true,true)}",array);
-                        }
-
-
+                        StoreMeasurementToOfflineStorage(measurement);
                     }
                     
                 }
@@ -65,14 +52,35 @@ namespace WeatherStats.Modules
             }
             catch (ThreadAbortException)
             {
-                // here we end up if the module is being closed down
-                int i = 34;
+                // if the thead is being aborted
             }
             catch (Exception e)
             {
                 Debug.Assert(false,e.Message);
             }
             
+        }
+
+        private void StoreMeasurementToOfflineStorage(WeatherMeasurement measurement)
+        {
+            var ser = new BinaryFormatter();
+            using (var memStream = new MemoryStream())
+            {
+                ser.Serialize(memStream, measurement);
+                var array = memStream.ToArray();
+                var path = System.Configuration.ConfigurationManager.AppSettings["OfflineStoragePath"];
+                if (Directory.Exists(path) == false)
+                {
+                    Directory.CreateDirectory(path);
+                }
+                File.WriteAllBytes($"{path}\\{measurement.Timestamp.Timestamp2String(true, true)}", array);
+            }
+        }
+
+        private WeatherMeasurement ReadMeasurementFromFile(string file)
+        {
+            //TODO implement this so we can migrate the offline files into the database
+            return new WeatherMeasurement(DateTime.MinValue, 0);
         }
     }
 }
