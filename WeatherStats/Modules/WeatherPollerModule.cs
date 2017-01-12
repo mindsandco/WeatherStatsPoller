@@ -29,7 +29,6 @@ namespace WeatherStats.Modules
                 while (false == this.ClosingDown)
                 {
                     var msToSleep = Math.Abs((DateTime.Now - DateTime.Now.ToTenMinutePrecision()).TotalMilliseconds);
-                    msToSleep = 1000;
                     Thread.Sleep(Convert.ToInt32(msToSleep));
                     var measuredDoubleValue = await wsp.PollDataFromWeb();
                     var measurement = new WeatherMeasurement(DateTime.Now, measuredDoubleValue);

@@ -62,6 +62,7 @@ namespace Modules
 
         protected bool ClosingDown => this.closingDown;
 
+        // TODO refactor this to use async/await properly
         protected abstract void DoWork();
 
 
