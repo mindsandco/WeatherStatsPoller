@@ -28,15 +28,17 @@ namespace WeatherStats.Modules
                 var wsp = new WeatherStatsPoller(this.City, this.Country);
                 while (false == this.ClosingDown)
                 {
-                    var msToSleep = Math.Abs((DateTime.Now - DateTime.Now.ToTenMinutePrecision()).TotalMilliseconds);
-                    Thread.Sleep(Convert.ToInt32(msToSleep));
+                    var now = DateTime.Now;
+                    var pollTime10MinPrecision = now.ToTenMinutePrecision();
+                    var ts = new TimeSpan(0,0,10,0)- (now - pollTime10MinPrecision);
+                    Thread.Sleep(Convert.ToInt32(ts.TotalMilliseconds));
                     var measuredDoubleValue = await wsp.PollDataFromWeb();
-                    var measurement = new WeatherMeasurement(DateTime.Now, measuredDoubleValue);
+                    var measurement = new WeatherMeasurement(pollTime10MinPrecision, measuredDoubleValue);
                     try
                     {
-
                         this.Database.WeatherMeasurement.Add(measurement);
                         this.Database.SaveChanges();
+                        Console.WriteLine($"Web says that in {wsp.Country},{wsp.City} the temperature is {measurement.TemperatureMeasurement} measured at: {measurement.Timestamp.Timestamp2String(false)}");
                     }
                     catch (Exception e)
                     {
