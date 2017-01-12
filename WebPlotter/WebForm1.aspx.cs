@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.DataVisualization.Charting;
 using System.Web.UI.WebControls;
+
 
 namespace WebPlotter
 {
@@ -52,6 +49,8 @@ namespace WebPlotter
 
         private static DataTable GetData(string query)
         {
+
+            //TODO use the code in shared to access the database
             DataTable dt = new DataTable();
             SqlCommand cmd = new SqlCommand(query);
             String constr = ConfigurationManager.ConnectionStrings["WeatherStats"].ConnectionString;

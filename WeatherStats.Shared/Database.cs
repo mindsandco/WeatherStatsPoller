@@ -1,7 +1,6 @@
 ﻿using System.Data.Entity;
-using WeatherStats.Model;
 
-namespace WeatherStats
+namespace WeatherStats.Shared
 {
     public class Database : DbContext
     {

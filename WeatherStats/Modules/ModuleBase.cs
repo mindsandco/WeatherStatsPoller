@@ -2,6 +2,7 @@
 using System.Data.SqlClient;
 using System.Threading;
 using WeatherStats;
+using WeatherStats.Shared;
 
 namespace Modules
 {

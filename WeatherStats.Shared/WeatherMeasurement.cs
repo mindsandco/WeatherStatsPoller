@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace WeatherStats.Model
+namespace WeatherStats.Shared
 {
     [Serializable]
     public class WeatherMeasurement

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WeatherStats
+namespace WeatherStats.Shared
 {
     public static class SharedMethods
     {

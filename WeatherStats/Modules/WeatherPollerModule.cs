@@ -4,7 +4,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
 using Modules;
-using WeatherStats.Model;
+using WeatherStats.Shared;
 
 namespace WeatherStats.Modules
 {
